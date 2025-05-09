@@ -32,7 +32,7 @@ function mostrarTareas() {
 
     tareas.forEach((item, index) => {
         const li = document.createElement('li');
-        li.classList.add('tareas');
+        li.classList.add('tarea');
         if (item.completada) li.classList.add('completada');
         li.textContent = item.texto;
 
