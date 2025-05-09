@@ -47,7 +47,15 @@ function mostrarTareas() {
             mostrarTareas();
         };
 
-        const btnEliminar = 
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = '❌';
+        btnEliminar.classList.add('btn_eliminar');
+        btnEliminar.onclick = () => {
+            tareas.splice(index, 1);
+            guardarTareasLocalStorage(tareas);
+            mostrarTareas(); 
+        };
+
 
         contenedorBotones.appendChild(btnCompletar);
         contenedorBotones.appendChild(btnEliminar);
@@ -70,17 +78,32 @@ function eliminarTarea(index) {
 
 // Crear una nueva Tarea
 function nuevaTarea() {
-    const nuevaTareaTexto = ingresar.ariaValueMax.trim();
+    const nuevaTareaTexto = ingresar.value.trim();
     if (nuevaTareaTexto === '') return;
 
     const tareas = obtenerTareasLocalStorage() || []; 
+    tareas.push({ texto: nuevaTareaTexto, completada: false });
+    guardarTareasLocalStorage(tareas);
+    ingresar.value = '';
+    mostrarTareas();
 
 }
   
 // Escuchar el boton Agregar y en el evento click llamar a nuevaTarea
+Agregar.addEventListener('click', nuevaTarea);
+
 
 // Escuchar el inputTarea y en el evento keypress con la tecla Enter 
+
+ingresar.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        nuevaTarea();
+    }
+});
 // llamar a nuevaTarea
 
+nuevaTarea();
+
 // Cargar tareas al iniciar con mostrarTareas
+mostrarTareas();
 
