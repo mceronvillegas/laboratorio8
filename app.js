@@ -1,7 +1,7 @@
 // Seleccionar los elemento x id del DOM: ingresar-tarea, boton-agregar y lista-tareas
-const ingresarTarea = document.getElementById('ingresar-tarea');
-const botonAgregar = document.getElementById('boton-agregar');
-const listaTareas = document.getElementById('lista-tareas');
+const ingresar = document.getElementById('ingresar-tarea');
+const Agregar = document.getElementById('boton-agregar');
+const lista = document.getElementById('lista-tareas');
 
 
 
@@ -13,19 +13,54 @@ function obtenerTareasLocalStorage() {
 
 // Guardar tareas en localStorage
 function guardarTareasLocalStorage(tareas) {
-    
+    localStorage.setItem('tareas',JSON.stringify(tareas));
 }
 
 // Renderizar la lista de tareas en el DOM
 function mostrarTareas() {
+    lista.innerHTML = ''; // Ingresar al elemento del html
+    const tareas = obtenerTareasLocalStorage
+
 }
 
 // Marcar la Tarea como completada
-function completarTarea(index) {
+function mostrarTareas() {
+    lista.innerHTML = '';
+    const tareas = obtenerTareasLocalStorage();
+
+    if (!tareas) return;
+
+    tareas.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.classList.add('tareas');
+        if (item.completada) li.classList.add('completada');
+        li.textContent = item.texto;
+
+        const contenedorBotones = document.createElement('div');
+
+        const btnCompletar = document.createElement('button');
+        btnCompletar.textContent = '✓';
+        btnCompletar.classList.add('btn_ok');
+        btnCompletar.onclick = () => {
+            tareas[index].completada = !tareas[index].completada;
+            guardarTareasLocalStorage(tareas);
+            mostrarTareas();
+        };
+
+        contenedorBotones.appendChild(btnCompletar);
+        contenedorBotones.appendChild(btnEliminar);
+
+        li.appendChild(contenedorBotones);
+        lista.appendChild(li);
+        
+    });
+    
 }
 
 // Eliminar la Tarea correspondiente
 function eliminarTarea(index) {
+    const tareas = obtenerTareasLocalStorage();
+    
 }
 
 // Crear una nueva Tarea
