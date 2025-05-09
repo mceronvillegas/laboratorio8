@@ -39,13 +39,15 @@ function mostrarTareas() {
         const contenedorBotones = document.createElement('div');
 
         const btnCompletar = document.createElement('button');
-        btnCompletar.textContent = '✓';
+        btnCompletar.textContent = '✔️';
         btnCompletar.classList.add('btn_ok');
         btnCompletar.onclick = () => {
             tareas[index].completada = !tareas[index].completada;
             guardarTareasLocalStorage(tareas);
             mostrarTareas();
         };
+
+        const btnEliminar = 
 
         contenedorBotones.appendChild(btnCompletar);
         contenedorBotones.appendChild(btnEliminar);
@@ -60,11 +62,19 @@ function mostrarTareas() {
 // Eliminar la Tarea correspondiente
 function eliminarTarea(index) {
     const tareas = obtenerTareasLocalStorage();
+    tareas.splice(index, 1);
+    guardarTareasLocalStorage(tareas);
+    mostrarTareas();
     
 }
 
 // Crear una nueva Tarea
 function nuevaTarea() {
+    const nuevaTareaTexto = ingresar.ariaValueMax.trim();
+    if (nuevaTareaTexto === '') return;
+
+    const tareas = obtenerTareasLocalStorage() || []; 
+
 }
   
 // Escuchar el boton Agregar y en el evento click llamar a nuevaTarea
